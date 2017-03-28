@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+<TextView
+    android:text="Parking Name"
+    android:layout_width="match_parent"
+    android:id="@+id/parkingname"
+    android:background="@color/colorPrimary"
+    android:gravity="center"
+    android:layout_height="120dp" />
+
+    <ScrollView
+        android:id="@+id/sview"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        tools:context="com.example.radhe.testandroid.Parking_view"
+        android:background="@color/cast_expanded_controller_ad_container_white_stripe_color"
+        android:layout_alignParentBottom="true"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/parkingname"
+        android:foregroundGravity="center">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linear"
+            android:gravity="center"></LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

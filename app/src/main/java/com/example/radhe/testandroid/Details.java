@@ -306,7 +306,7 @@ public class Details extends android.app.Fragment  {
         @Override
         protected Void doInBackground(String... args) {
 
-            String url = "http://192.168.43.49:8000/parkhere/show_particular.php?id="+id;
+            String url = "http://192.168.43.136:8000/parkhere/show_particular.php?id="+id;
 
 
 
@@ -338,7 +338,7 @@ public class Details extends android.app.Fragment  {
                         details.put("address",jsonObject.getString("address"));
                         int cc=0;
                         for (int j=0;j<jsonObject.getString("availability").length();j++){
-                            if(jsonObject.getString("availability").charAt(j)=='1')
+                            if(jsonObject.getString("availability").charAt(j)=='0')
                                 cc++;
                         }
                         details.put("availability",String .valueOf(cc));

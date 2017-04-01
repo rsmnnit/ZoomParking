@@ -3,14 +3,18 @@ package com.example.radhe.testandroid;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +24,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdate;
@@ -55,7 +60,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String available;
     private JSONObject jobj;
     private JSONArray jarray;
-    private String url = "http://192.168.43.49:8000/parkhere/showallmarkers.php";
+    private String url = "http://192.168.43.136:8000/parkhere/showallmarkers.php";
     private List<Markers> markersList = new ArrayList<Markers>();
 
     private Double search_latitude,search_longitude;
@@ -91,11 +96,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps2);
         cnt = 0;
 
+
+
+
         search = (FloatingActionButton) findViewById(R.id.search_location);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(searchObj!=null){
+                         if (!isNetworkAvailable()) {
+                             Toast.makeText(getApplicationContext(), " Not Connected to Internet", Toast.LENGTH_LONG).show();
+                             Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                             startActivity(i);
+                             return;
+
+                         }
+                    if(searchObj!=null){
 
                     searchObj.remove();
                     searchObj=null;
@@ -208,6 +223,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+    }
+
+
+
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager cm = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        // if no network is available networkInfo will be null
+        // otherwise check if we are connected
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        }
+        return false;
     }
 
 

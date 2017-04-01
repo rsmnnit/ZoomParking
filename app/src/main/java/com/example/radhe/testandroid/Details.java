@@ -170,9 +170,15 @@ public class Details extends android.app.Fragment  {
                  curr_loc = new MapsActivity().get_curr_loc();
                 //Log.d("Curr_loc",dest_loc.toString());
                 //Log.d("dest_loc",curr_loc.toString());
-                  String url = getUrl(curr_loc,dest_loc);
-                FetchUrl fetchUrl = new FetchUrl();
-                fetchUrl.execute(url);
+                if(curr_loc!=null) {
+                    String url = getUrl(curr_loc, dest_loc);
+                    FetchUrl fetchUrl = new FetchUrl();
+                    fetchUrl.execute(url);
+                }
+                else {
+                    direction.setVisibility(View.VISIBLE);
+                    closedirection.setVisibility(View.GONE);
+                }
             }
         });
         show.setVisibility(View.GONE);
